@@ -30,10 +30,7 @@ class DailyReminderAgent(Agent):
         return self.llm.invoke(prompt)
 
     def run(self, state: dict = None) -> dict:
-        now = datetime.datetime.now()
-        current_hour = now.hour
-
-        if current_hour < 12 and not self.sent_today:
+        if not self.sent_today:
             print("[DailyReminderAgent] Sending first reminder of the day.")
             message = self.generate_reminder_message()
             self.sent_today = True
@@ -44,7 +41,7 @@ class DailyReminderAgent(Agent):
                 "acknowledgment_required": True
             }
 
-        if self.sent_today and not self.acknowledged and current_hour >= 12:
+        if self.sent_today and not self.acknowledged:
             print("[DailyReminderAgent] No acknowledgment yet. Sending follow-up.")
             return {
                 "reminder_sent": True,
