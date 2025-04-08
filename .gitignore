@@ -1,1 +1,11 @@
 venv/
+*.pyc
+__pycache__/
+*.egg-info/ 
+*.egg
+*.log   
+*.sqlite3
+*.db
+*.pdb
+*.DS_Store
+

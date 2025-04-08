@@ -28,7 +28,7 @@ class HealthMonitoringAgent(Agent):
 
         Provide a short health analysis in 2-3 lines. Mention any concern if present.
         """
-
+        print("[Health Monitor Agent] Analysing the sensor data.")
         llm_response = self.llm.invoke(prompt)
 
         return {

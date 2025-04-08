@@ -4,3 +4,5 @@ langchain
 langgraph
 langchain-community
 python-dotenv
+graphviz
+pygraphviz
