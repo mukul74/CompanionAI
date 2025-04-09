@@ -1,5 +1,11 @@
 from datetime import datetime
 from graphs.health_monitoring_flow import graph
+from rich.console import Console
+from rich.panel import Panel
+from rich.text import Text
+
+# Rich console
+console = Console()
 
 # Simulated sensor data for 5 different patients
 test_patients = [
@@ -9,7 +15,7 @@ test_patients = [
         "heart_rate": 52,
         "blood_pressure": "150/95",
         "glucose_level": 190.0,
-        "oxygen_saturation": 89.0,  # 🔴 ALERT PATH
+        "oxygen_saturation": 89.0,
         "movement_activity": "lying",
         "fall_detected": True,
         "impact_force_level": 6.2,
@@ -22,7 +28,7 @@ test_patients = [
         "heart_rate": 72,
         "blood_pressure": "120/80",
         "glucose_level": 110.0,
-        "oxygen_saturation": 98.0,  # ✅ REMINDER PATH
+        "oxygen_saturation": 98.0,
         "movement_activity": "walking",
         "fall_detected": False,
         "impact_force_level": 0.0,
@@ -35,7 +41,7 @@ test_patients = [
         "heart_rate": 105,
         "blood_pressure": "145/100",
         "glucose_level": 200.0,
-        "oxygen_saturation": 88.0,  # 🔴 ALERT PATH
+        "oxygen_saturation": 88.0,
         "movement_activity": "sitting",
         "fall_detected": True,
         "impact_force_level": 3.4,
@@ -48,7 +54,7 @@ test_patients = [
         "heart_rate": 68,
         "blood_pressure": "118/79",
         "glucose_level": 95.0,
-        "oxygen_saturation": 97.0,  # ✅ REMINDER PATH
+        "oxygen_saturation": 97.0,
         "movement_activity": "idle",
         "fall_detected": False,
         "impact_force_level": 0.0,
@@ -61,7 +67,7 @@ test_patients = [
         "heart_rate": 110,
         "blood_pressure": "160/105",
         "glucose_level": 210.0,
-        "oxygen_saturation": 85.0,  # 🔴 ALERT PATH
+        "oxygen_saturation": 85.0,
         "movement_activity": "lying",
         "fall_detected": True,
         "impact_force_level": 7.8,
@@ -70,23 +76,32 @@ test_patients = [
     }
 ]
 
-# Run the graph for each patient and print result
+# Run the graph for each patient and pretty-print the results
 for idx, sensor_data in enumerate(test_patients, 1):
-    print("========================================")
-    print(f"\n🧑 Patient #{idx} ({sensor_data['device_id']})")
+    console.rule(f"🧑 Patient #{idx} — {sensor_data['device_id']}", style="bold green")
     output = graph.invoke({"input": sensor_data})
 
-    # print("→ Tool Assessment:\n", output["health_report"]["tool_assessment"])
-    print("→ LLM Analysis:\n", output["health_report"]["llm_analysis"])
+    # Tool Assessment (optional)
+    # console.print(Panel.fit(output["health_report"]["tool_assessment"], title="🛠️ Tool Assessment", style="dim"))
 
+    # LLM Analysis
+    console.print(Panel.fit(output["health_report"]["llm_analysis"], title="🧠 LLM Analysis", style="cyan"))
+
+    # Alert Handling
     if output["alert_result"]["raise_alert"]:
-        print("🚨 ALERT TRIGGERED:")
-        print("→ Reason :\n", output["alert_result"]["reason"])
-        print("→ Notified :\n", output["alert_result"]["notify"])
+        console.print(Panel.fit(
+            f"[bold red]🚨 ALERT TRIGGERED[/bold red]\n\n"
+            f"[b]Reason:[/b] {output['alert_result']['reason']}\n"
+            f"[b]Notified:[/b] {output['alert_result']['notify']}",
+            title="🔴 Critical Health Alert", style="bold red"
+        ))
     elif "reminder" in output:
-        print("📅 DAILY REMINDER SENT:")
-        print("→ Reminder :\n", output["reminder"]["message"])
+        console.print(Panel.fit(
+            output["reminder"]["message"],
+            title="📅 Daily Reminder", style="green"
+        ))
     else:
-        print("⚠️ Unknown output state:", output)
-    print("========================================")
+        console.print("[yellow]⚠️ Unknown output state[/yellow]")
+    
+    console.rule("End of Patient Report", style="dim")
     print("\n")

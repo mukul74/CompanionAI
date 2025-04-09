@@ -1,12 +1,13 @@
 from pydantic_ai.agent import Agent
 from schemas.sensor_data import SensorData
-
+from rich.console import Console
 class SensorAgent(Agent):
     name = "SensorAgent"
     description = "Collects and validates sensor data from devices."
 
     def run(self, data: dict) -> dict:
-        print("[Sensor Agent] Validating sensor input...")
+        console = Console()
+        console.print("[bold blue][Sensor Agent][/bold blue] [yellow]Validating Input[/yellow]")
         sensor_data = SensorData(**data)
-        print("[Sensor Agent] Validated sensor input")
+        console.print("[bold blue][Sensor Agent][/bold blue] [green]Validation Done[/green]")
         return sensor_data.dict()

@@ -1,6 +1,7 @@
 from pydantic_ai.agent import Agent
 from langchain_community.llms import Ollama
 import datetime
+from rich.console import Console
 
 class DailyReminderAgent(Agent):
     name = "DailyReminderAgent"
@@ -48,9 +49,11 @@ class DailyReminderAgent(Agent):
 
     def run(self, health_report: dict) -> dict:
         if not self.sent_today:
-            print("[Daily Reminder Agent] Generating relevant reminders of the day.")
+            console = Console()
+            console.print("[bold blue][Daily Reminder Agent][/bold blue] [yellow]Generating relevant reminders of the day.[/yellow]")
             message = self.generate_reminder_message(health_report)
-            print("[Daily Reminder Agent] Sensding reminders of the day.")
+            console.print("[bold blue][Daily Reminder Agent][/bold blue] [green]Sending reminders of the day.[/green]")
+            # print("[Daily Reminder Agent] Sensding reminders of the day.")
             self.sent_today = True
             self.acknowledged = False
             return {

@@ -1,6 +1,8 @@
 from pydantic_ai.agent import Agent
 from langchain_community.llms import Ollama
 import json
+from rich.console import Console
+from rich.markdown import Markdown
 
 class AlertAgent(Agent):
     name = "AlertAgent"
@@ -35,10 +37,13 @@ class AlertAgent(Agent):
         Ensure the response is concise and clear and in points.
         """
 
-        print("[Alert Agent] Evaluating report from Health Monitoring Agent.")
-        print("[Alert Agent] Generating alert response.")
+        console = Console()
+
+        console.print("[bold magenta][Alert Agent][/bold magenta] [cyan] Evaluating report from Health Monitoring Agent[/cyan].")
+        console.print("[bold magenta][Alert Agent][/bold magenta] [bold yellow] Generating alert response[/bold yellow].")
+
         llm_response = self.llm.invoke(prompt)
-        print("[Alert Agent] Alert response generated.")
+        console.print("[bold magenta][Alert Agent][/bold magenta] [green]Alert response generated.[/green]")
         try:
             alert_info = json.loads(llm_response)
         except Exception as e:
