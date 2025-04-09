@@ -38,9 +38,35 @@ This project leverages a **Multi-Agent AI architecture** to revolutionize elderl
 
 ---
 
-## 📦 Getting Started (Coming Soon)
+## 📦 Getting Started 
 
-Setup instructions, environment setup, and usage guides will be added in upcoming updates.
+  Follow these steps to set up and run the project locally:
+
+  ## 🚀 Getting Started
+
+```bash
+  # 1. Clone the Repository
+  git clone https://github.com/mukul74/CompanionAI.git
+
+  # 2. Navigate to the Project Directory
+  cd CompanionAI
+
+  # 3. Create a Virtual Environment and Install Dependencies
+
+  # For Linux/Mac
+  python -m venv venv
+  source venv/bin/activate
+
+  # For Windows
+  python -m venv venv
+  venv\Scripts\activate
+
+  pip install -r requirements.txt
+
+  # 4. Run the FastAPI Application
+  python main.py
+```
+
 
 ---
 
