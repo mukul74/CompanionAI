@@ -42,8 +42,6 @@ This project leverages a **Multi-Agent AI architecture** to revolutionize elderl
 
   Follow these steps to set up and run the project locally:
 
-  ## 🚀 Getting Started
-
 ```bash
   # 1. Clone the Repository
   git clone https://github.com/mukul74/CompanionAI.git
