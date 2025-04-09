@@ -53,7 +53,7 @@ class HealthMonitoringAgent(Agent):
         Post-Fall Inactivity Duration: {data.post_fall_inactivity_duration} seconds
         Location: {data.location}
         """
-        print("[Health Monitor Agent] Analysing the full sensor data including fall and activity.")
+        print("[Health Monitor Agent] Analysing the sensor data including fall and activity.")
         llm_response = self.llm.invoke(prompt)
 
         return {

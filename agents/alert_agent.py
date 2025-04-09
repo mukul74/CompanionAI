@@ -29,15 +29,16 @@ class AlertAgent(Agent):
         {{
             "raise_alert": true/false,
             "reason": "Short explanation",
-            "notify": ["family", "nurse", "doctor"]
+            "notify": ["Family", "Nurse", "Doctor"]
         }}
 
-        Ensure the response is concise and clear.
+        Ensure the response is concise and clear and in points.
         """
 
-        print("[Alert Agent] Evaluating health report...")
+        print("[Alert Agent] Evaluating report from Health Monitoring Agent.")
+        print("[Alert Agent] Generating alert response.")
         llm_response = self.llm.invoke(prompt)
-
+        print("[Alert Agent] Alert response generated.")
         try:
             alert_info = json.loads(llm_response)
         except Exception as e:
