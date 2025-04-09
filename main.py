@@ -81,11 +81,11 @@ for idx, sensor_data in enumerate(test_patients, 1):
 
     if output["alert_result"]["raise_alert"]:
         print("🚨 ALERT TRIGGERED:")
-        print(output["alert_result"]["reason"])
-        print(output["alert_result"]["notify"])
+        print("→ Reason :\n", output["alert_result"]["reason"])
+        print("→ Notified :\n", output["alert_result"]["notify"])
     elif "reminder" in output:
         print("📅 DAILY REMINDER SENT:")
-        print(output["reminder"])
+        print("→ Reminder :\n", output["reminder"]["message"])
     else:
         print("⚠️ Unknown output state:", output)
     print("========================================")
