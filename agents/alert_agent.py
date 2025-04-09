@@ -9,11 +9,17 @@ class AlertAgent(Agent):
     def __init__(self):
         self.llm = Ollama(model="llama3.2")
         super().__init__()
-
+        #    Tool-based Assessment:
+        # {health_report['tool_assessment']}
     def run(self, health_report: dict) -> dict:
         prompt = f"""
         You are an alerting system for a healthcare assistant AI.
+        Your task is to evaluate the health monitoring report and determine if an alert should be raised.
+        Use {health_report['llm_analysis']}, which includes vital signs, fall detection status, and other health indicators.
+        You need to analyze the report and decide if the patient's condition is critical enough to warrant an alert.
+        If an alert is raised, provide a reason and specify whom to notify (family, nurse, doctor).
 
+        
         Based on the health monitoring report below, determine:
         1. Should an alert be raised?
         2. What is the reason?
@@ -26,11 +32,7 @@ class AlertAgent(Agent):
             "notify": ["family", "nurse", "doctor"]
         }}
 
-        Tool-based Assessment:
-        {health_report['tool_assessment']}
-
-        LLM-based Health Analysis:
-        {health_report['llm_analysis']}
+        Ensure the response is concise and clear.
         """
 
         print("[Alert Agent] Evaluating health report...")
