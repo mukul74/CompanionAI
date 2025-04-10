@@ -4,7 +4,13 @@ from graphs.health_monitoring_flow import graph  # Your existing logic
 
 # Streamlit page config
 st.set_page_config(page_title="🧑‍⚕️ Companion AI", layout="centered")
-
+st.markdown("""
+    <style>
+    html, body, [class*="css"]  {
+        font-size: 12px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 # App title
 st.title("🧑‍⚕️ Elderly Care Health Monitoring Dashboard")
 
@@ -12,7 +18,7 @@ st.title("🧑‍⚕️ Elderly Care Health Monitoring Dashboard")
 left_col, right_col = st.columns([1, 3])
 
 with left_col:
-    st.markdown("### 📂 Upload CSV")
+    st.markdown("#### 📂 Upload CSV")
     st.markdown(
         "<small>Select a CSV file containing patient data.</small>",
         unsafe_allow_html=True
@@ -67,6 +73,6 @@ if uploaded_file is not None:
                 else:
                     st.warning("⚠️ No specific action triggered.")
 
-else:
-    with right_col:
-        st.info("Upload a patient CSV file to start monitoring.")
+# else:
+#     with right_col:
+#         st.info("Upload a patient CSV file to start monitoring.")
