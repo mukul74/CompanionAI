@@ -6,6 +6,7 @@ This project leverages a **Multi-Agent AI architecture** to revolutionize elderl
 <p align="center">
   <img src="./UI.png" alt="CompanionAI UI Preview" width="600"/>
 </p>
+
 ## 🚀 Key Features
 
 - **Personalized Elder Care**: Modular agents tailored for individual needs.
