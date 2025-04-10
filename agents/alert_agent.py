@@ -39,15 +39,15 @@ class AlertAgent(Agent):
 
         console = Console()
 
-        console.print("[bold magenta][Alert Agent][/bold magenta] [cyan] Evaluating report from Health Monitoring Agent[/cyan].")
-        console.print("[bold magenta][Alert Agent][/bold magenta] [bold yellow] Generating alert response[/bold yellow].")
+        console.print("[bold orange][Alert Agent][/bold orange] [cyan] Evaluating report from Health Monitoring Agent[/cyan].")
+        console.print("[bold orange][Alert Agent][/bold orange] [bold yellow] Generating alert response[/bold yellow].")
 
         llm_response = self.llm.invoke(prompt)
-        console.print("[bold magenta][Alert Agent][/bold magenta] [green]Alert response generated.[/green]")
+        console.print("[bold orange][Alert Agent][/bold orange] [green]Alert response generated.[/green]")
         try:
             alert_info = json.loads(llm_response)
         except Exception as e:
-            print("[Alert Agent] Failed to parse LLM response, returning fallback.")
+            console.print("[bold red][Alert Agent][/bold red] [red]Failed to parse LLM response, returning fallback.[/red]")
             alert_info = {
                 "raise_alert": False,
                 "reason": "Failed to parse LLM response.",
