@@ -3,7 +3,9 @@
 This project leverages a **Multi-Agent AI architecture** to revolutionize elderly care by combining the power of **Large Language Models (LLMs)**, **LangGraph**, **Pydantic AI**, and **intelligent AI agents**. Each agent is specialized for a distinct care function—such as **medication reminders**, **emotional support**, **health monitoring**, and **daily task assistance**—and they work collaboratively in a modular, **graph-based framework** to provide **personalized and proactive support** for elderly individuals.
 
 ---
-
+<p align="center">
+  <img src="./UI.png" alt="CompanionAI UI Preview" width="600"/>
+</p>
 ## 🚀 Key Features
 
 - **Personalized Elder Care**: Modular agents tailored for individual needs.
