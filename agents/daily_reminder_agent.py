@@ -2,34 +2,44 @@ from pydantic_ai.agent import Agent
 from langchain_community.llms import Ollama
 import datetime
 from rich.console import Console
-
+import requests
 class DailyReminderAgent(Agent):
     name = "DailyReminderAgent"
     description = "Sends daily wellness reminders and checks acknowledgment."
 
     def __init__(self):
-        self.llm = Ollama(model="llama3.2")
-        super().__init__()
-        self.reminders = [
-            "Take your morning walk ",
-            "Eat a healthy breakfast",
-            "Check your blood pressure",
-            "Take your vitamins",
-            "Read a book or do a puzzle",
-            "Call a friend or family member",
-            "Do some light housework",
-            "Practice deep breathing exercises",
-            "Listen to your favorite music",
-            "Spend some time in the garden",
-            "Watch a favorite TV show or movie",
-            "Write in a journal or diary",
-            "Take your morning medication",
-            "Drink a glass of water",
-            "Do 10 minutes of light stretching",
-            "Check your appointment calendar"
-        ]
-        self.sent_today = False
-        self.acknowledged = False
+            try:
+                # Ping remote Ollama server to check if it's up
+                requests.get("http://10.103.188.245:11434/api/tags", timeout=2)
+                # If reachable, use remote model
+                self.llm = Ollama(model="mistral", base_url="http://10.103.188.245:11434/")
+                print("[Info] Using remote Ollama model: mistral")
+            except Exception as e:
+                print(f"[Warning] Remote model unavailable. Reason: {e}")
+                print("[Fallback] Using local Ollama model: llama3")
+                self.llm = Ollama(model="llama3.2")  # Local host assumed
+
+            # super().__init__()
+            self.reminders = [
+                "Take your morning walk ",
+                "Eat a healthy breakfast",
+                "Check your blood pressure",
+                "Take your vitamins",
+                "Read a book or do a puzzle",
+                "Call a friend or family member",
+                "Do some light housework",
+                "Practice deep breathing exercises",
+                "Listen to your favorite music",
+                "Spend some time in the garden",
+                "Watch a favorite TV show or movie",
+                "Write in a journal or diary",
+                "Take your morning medication",
+                "Drink a glass of water",
+                "Do 10 minutes of light stretching",
+                "Check your appointment calendar"
+            ]
+            self.sent_today = False
+            self.acknowledged = False
 
     def generate_reminder_message(self, health_report: dict):
         joined = "\n- " + "\n- ".join(self.reminders)

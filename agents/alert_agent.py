@@ -3,16 +3,25 @@ from langchain_community.llms import Ollama
 import json
 from rich.console import Console
 from rich.markdown import Markdown
-
+import requests
 class AlertAgent(Agent):
     name = "AlertAgent"
     description = "Evaluates health analysis and decides whether to raise an alert and whom to notify."
 
     def __init__(self):
-        self.llm = Ollama(model="llama3.2")
-        super().__init__()
-        #    Tool-based Assessment:
-        # {health_report['tool_assessment']}
+        try:
+            # Ping remote Ollama server to check if it's up
+            requests.get("http://10.103.188.245:11434/api/tags", timeout=2)
+            # If reachable, use remote model
+            self.llm = Ollama(model="mistral", base_url="http://10.103.188.245:11434/")
+            print("[Info] Using remote Ollama model: mistral")
+        except Exception as e:
+            print(f"[Warning] Remote model unavailable. Reason: {e}")
+            print("[Fallback] Using local Ollama model: llama3")
+            self.llm = Ollama(model="llama3.2")  # Local host assumed
+
+        # super().__init__()
+
     def run(self, health_report: dict) -> dict:
         prompt = f"""
         You are an alerting system for a healthcare assistant AI.

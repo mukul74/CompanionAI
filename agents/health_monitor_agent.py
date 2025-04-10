@@ -3,13 +3,24 @@ from langchain_community.llms import Ollama
 from tools.access_tools import access_all_vitals
 from schemas.sensor_data import SensorData
 from rich.console import Console
+import requests
 class HealthMonitoringAgent(Agent):
     name = "HealthMonitoringAgent"
     description = "Analyzes sensor data and provides health insights or alerts."
 
     def __init__(self):
-        self.llm = Ollama(model="llama3.2")  # Change model name if needed
-        super().__init__()
+        try:
+                # Ping remote Ollama server to check if it's up
+                requests.get("http://10.103.188.245:11434/api/tags", timeout=2)
+                # If reachable, use remote model
+                self.llm = Ollama(model="mistral", base_url="http://10.103.188.245:11434/")
+                print("[Info] Using remote Ollama model: mistral")
+        except Exception as e:
+                print(f"[Warning] Remote model unavailable. Reason: {e}")
+                print("[Fallback] Using local Ollama model: llama3")
+                self.llm = Ollama(model="llama3.2")  # Local host assumed
+
+        # super().__init__()
 
     def run(self, sensor_data: dict) -> dict:
         # ✅ Validate data using SensorData schema (ensures all fields exist)
