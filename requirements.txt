@@ -4,6 +4,7 @@ langchain
 langgraph
 langchain-community
 python-dotenv
-graphviz
-pygraphviz
 rich
+fastapi
+uvicorn
+pydantic
