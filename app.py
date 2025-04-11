@@ -48,7 +48,7 @@ if uploaded_file is not None:
 
             with st.expander(f"🧑 Patient #{idx + 1} - {sensor_data.get('device_id', 'N/A')} ({alert_title})", expanded=False):
                 st.markdown(f"""
-                <div style="background-color:{color};padding:10px;border-radius:10px;">
+                <div style="background-color:{color};padding:10px;border-radius:10px;color:white;">
                     <b>📍 Location:</b> {sensor_data.get('location', 'N/A')}<br>
                     <b>🕒 Timestamp:</b> {sensor_data.get('timestamp', 'N/A')}<br>
                     <b>❤️ Heart Rate:</b> {sensor_data.get('heart_rate', 'N/A')}<br>
