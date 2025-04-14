@@ -67,9 +67,14 @@ pip install -r requirements.txt
 
 # 4. Run the Streamlit Application
 streamlit run app.py
+
+
+# 5. From the repo select the test_patients_data.csv in the webpage
 ```
 
 ---
+
+
 
 ## 🤝 Contributing
 

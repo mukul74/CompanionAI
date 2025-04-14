@@ -1,0 +1,6 @@
+timestamp,device_id,heart_rate,blood_pressure,glucose_level,oxygen_saturation,movement_activity,fall_detected,impact_force_level,post_fall_inactivity_duration,location
+2025-04-10T17:02:35,elderly_device_001,52,150/95,190.0,89.0,lying,True,6.2,80,bathroom
+2025-04-10T17:02:35,elderly_device_002,72,120/80,110.0,98.0,walking,False,0.0,0,living room
+2025-04-10T17:02:35,elderly_device_003,105,145/100,200.0,88.0,sitting,True,3.4,20,kitchen
+2025-04-10T17:02:35,elderly_device_004,68,118/79,95.0,97.0,idle,False,0.0,0,bedroom
+2025-04-10T17:02:35,elderly_device_005,110,160/105,210.0,85.0,lying,True,7.8,120,staircase
